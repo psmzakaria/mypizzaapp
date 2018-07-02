@@ -36,37 +36,34 @@ const pizzas = [
 app.get("/pizzas", (req, res) => {
   res.send(pizzas);
 });
-// //GET/Pizzas/:id
-// app.get("/pizzas", (req, res) => {
-//   res.send({pizzas.filter pizza id == req params.id
-//     message: `Pizzas with id:${req.params.id}`
-//   });
-// });
+//GET/Pizzas/:id
+app.get("/pizzas/:id", (req, res) => {
+  res.send(getPizzaById(req.params.id));
+});
 //POST/Pizzas
 app.post("/pizzas", (req, res) => {
-  let adddingPizza = pizzas.push(req.body);
-  console.log(adddingPizza);
+  pizzas.push(req.body);
   res.send(pizzas);
 });
-// //PUT/Pizzas/:id
-// app.put("/pizzas/:id", (req, res) => {
-//   console.log(req.params.id);
-//   let oldPizza = pizzas.find(pizza => {
-//     pizza.id === req.params.id;
-//   });
-//   let newPizza = { ...pizzas, ...oldPizza };
+//PUT/Pizzas/:id
+app.put("/pizzas/:id", (req, res) => {
+  pizzas = pizzas.map(pizza => {
+    if (pizza.id === req.params.id);
+    return Object.assign(pizza, req.body);
+    return pizza;
+  });
 
-//   res.send(replacePizza);
-// });
-// //DELETE/Pizzas/:id
-// app.delete("/pizzas/:id", (req, res) => {
-//   console.log(req.params.id);
-//   let remainingPizzas = pizzas.filter((pizza, i) => {
-//     pizza.id !== req.params.id;
-//   });
-//   pizzas = [...remainingPizzas];
-//   res.send(remainingPizzas);
-// });
+  res.send(pizzas);
+});
+//DELETE/Pizzas/:id
+app.delete("/pizzas/:id", (req, res) => {
+  console.log(req.params.id);
+  let remainingPizzas = pizzas.filter((pizza, i) => {
+    pizza.id !== req.params.id;
+  });
+  pizzas = [...remainingPizzas];
+  res.send(remainingPizzas);
+});
 
 app.listen(PORT, () => {
   console.log(`Your app has started on port${PORT}...`);
