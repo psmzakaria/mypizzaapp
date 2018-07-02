@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || git 3000;
 const bodyParser = require("body-parser");
 app.use(bodyParser());
 
@@ -48,25 +48,25 @@ app.post("/pizzas", (req, res) => {
   console.log(adddingPizza);
   res.send(pizzas);
 });
-//PUT/Pizzas/:id
-app.put("/pizzas/:id", (req, res) => {
-  console.log(req.params.id);
-  let oldPizza = pizzas.find(pizza => {
-    pizza.id === req.params.id;
-  });
-  let newPizza = { ...pizzas, ...oldPizza };
+// //PUT/Pizzas/:id
+// app.put("/pizzas/:id", (req, res) => {
+//   console.log(req.params.id);
+//   let oldPizza = pizzas.find(pizza => {
+//     pizza.id === req.params.id;
+//   });
+//   let newPizza = { ...pizzas, ...oldPizza };
 
-  res.send(replacePizza);
-});
-//DELETE/Pizzas/:id
-app.delete("/pizzas/:id", (req, res) => {
-  console.log(req.params.id);
-  let remainingPizzas = pizzas.filter((pizza, i) => {
-    pizza.id !== req.params.id;
-  });
-  pizzas = [...remainingPizzas];
-  res.send(remainingPizzas);
-});
+//   res.send(replacePizza);
+// });
+// //DELETE/Pizzas/:id
+// app.delete("/pizzas/:id", (req, res) => {
+//   console.log(req.params.id);
+//   let remainingPizzas = pizzas.filter((pizza, i) => {
+//     pizza.id !== req.params.id;
+//   });
+//   pizzas = [...remainingPizzas];
+//   res.send(remainingPizzas);
+// });
 
 app.listen(PORT, () => {
   console.log(`Your app has started on port${PORT}...`);
