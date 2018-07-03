@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
 app.use(bodyParser());
 
-const pizzas = [
+let pizzas = [
   {
     id: "1",
     name: "Hawaiian",
@@ -33,6 +33,10 @@ const pizzas = [
   }
 ];
 //GET Pizzas
+app.get("/", (req, res) => {
+  res.send({ message: "hello pizzas" });
+});
+//GET Pizzas
 app.get("/pizzas", (req, res) => {
   res.send(pizzas);
 });
@@ -43,28 +47,28 @@ app.get("/pizzas/:id", (req, res) => {
 //POST/Pizzas
 app.post("/pizzas", (req, res) => {
   pizzas.push(req.body);
-  res.send(pizzas);
+  res.json(req.body);
 });
 //PUT/Pizzas/:id
 app.put("/pizzas/:id", (req, res) => {
+  let pizzaToUpdate
   pizzas = pizzas.map(pizza => {
-    if (pizza.id === req.params.id);
-    return Object.assign(pizza, req.body);
+    if (pizza.id === req.params.id) {
+      pizzaToUpdate=Object.assign(pizza, req.body);
+      return pizzaToUpdate
+    };
     return pizza;
   });
 
-  res.send(pizzas);
+  res.json(pizzaToUpdate);
 });
 //DELETE/Pizzas/:id
 app.delete("/pizzas/:id", (req, res) => {
   console.log(req.params.id);
   let remainingPizzas = pizzas.filter((pizza, i) => {
-    pizza.id !== req.params.id;
+    return pizza.id !== req.params.id;
   });
   pizzas = [...remainingPizzas];
-  res.send(remainingPizzas);
+  res.json(`Deleted Success ${req.params.id}`);
 });
-
-app.listen(PORT, () => {
-  console.log(`Your app has started on port${PORT}...`);
-});
+module.exports = app;
