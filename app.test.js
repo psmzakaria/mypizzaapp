@@ -33,9 +33,8 @@ test("PUT/ should return an array", async () => {
 });
 
 test("DELETE/ should delete an object", async () => {
-  const ID ="1"
+  const ID = "1";
   const response = await request(app).delete("/pizzas/1");
   // expect(response.status).toEqual(200);
   expect(response.body).toEqual("Deleted Success " + ID);
-
 });
